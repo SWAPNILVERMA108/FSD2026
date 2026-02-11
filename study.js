@@ -43,17 +43,18 @@
 // console.log(today)
 
 
-console.log(Math.sqrt(25))
-let a = ((Math.random()+1));
+// console.log(Math.sqrt(25))
+// let a = ((Math.random()+1));
 
-// string
-txt = "hello world";
-console.log(txt.includes("html"));
+// // string
+// txt = "hello world";
+// console.log(txt.includes("html"));
 
-// type conversion
+// // type conversion
 
-let strnum= "123";
-let convert = Number(strnum);
-console.log(convert+10)
+// let strnum= "123";
+// let convert = Number(strnum);
+// console.log(convert+10)
 
-console.log("hello")
+
+document.getElementById("element").innerHTML="hello swapnil"
