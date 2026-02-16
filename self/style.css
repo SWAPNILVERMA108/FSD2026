@@ -1,0 +1,36 @@
+
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg,white);
+}
+
+.container {
+    width: 300px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#password {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.controls input {
+    width: 60px;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: #667eea;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
