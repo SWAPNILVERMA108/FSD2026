@@ -1,82 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Smart Student Manager</title>
 </head>
 <body>
-    
-   <input type="text" id ="name" placeholder="Enter name" >
-   <input type="text " id ="email" placeholder="Enter email" >
-   <input type="number" id ="mark" placeholder="Enter mark" >
-   <button onclick="addStudent()">Add Student</button>
-    <table border="1">
-     <thead>
-          <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mark</th>
-          </tr>
-     </thead>
-     <tbody id="studentTableBody">
-          <!-- Student rows will be added here -->
-     </tbody>
 
+<h2>Smart Student Manager</h2>
 
+<input type="text" id="name" placeholder="Enter Name">
+<input type="text" id="email" placeholder="Enter Email">
+<input type="number" id="marks" placeholder="Enter Marks">
+<button onclick="addStudent()">Add Student</button>
 
-   <script>
-    let students = [];
+<h3>Student List:</h3>
+<ul id="studentList"></ul>
 
-    let emailSet = new Set();
+<script>
 
-    let gradeMap = new Map();
+//  GLOBAL SCOPE 
+let students = [];          // Array
+let emailSet = new Set();   // Set (unique emails)
+let gradeMap = new Map();   // Map (email → grade)
+function addStudent() {
 
-    function addStudent() {
-         // for debugging
+    try {
+
+        // Debugging
         debugger;
 
+        // Local Scope
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
-        const marks = Number(document.getElementsBy("marks").value);
+        const marks = Number(document.getElementById("marks").value);
 
-        // REGEX validation for email
-        const emailpatter = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailpatter.test(email)){
-            throw new Error("Invalid email format");
+        // 
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+            throw new Error("Invalid Email Format!");
         }
+
+        if (marks < 0 || marks > 100) {
+            throw new Error("Marks must be between 0 and 100");
+        }
+
+        if (emailSet.has(email)) {
+            throw new Error("Email already exists!");
+        }
+
+        emailSet.add(email);
+
+        // ================= OBJECT =================
+        const student = {
+            name,
+            email,
+            marks,
+            date: new Date(),   // JS Date
+            getGrade: function() {
+                return calculateGrade(this.marks);
+            }
+        };   
+        students.push(student);
+        gradeMap.set(email, student.getGrade());
+        displayStudents();
+        clearFields();
+    } catch (error) {
+        alert(error.message);
     }
-if(marks<0 || marks>100){
-    throw new Error("Marks should be between 0 and 100");
-
-
 }
-if(emailSet.has(email)){
-    throw new Error("Email already exists");
+function calculateGrade(marks) {
+    if (marks >= 90) return "A";
+    if (marks >= 75) return "B";
+    if (marks >= 60) return "C";
+    if (marks >= 40) return "D";
+    return "Fail";
 }
-
-emailSet.add(email);
-// object 
-
-
-   </script>
-   try{
-   const student = {
-    name,
-    eamil,
-    marks,
-    data: new Date()
-    getGrade : function(){
-        return calculateGrade(this.marks);
+function displayStudents() {
+    const list = document.getElementById("studentList");
+    list.innerHTML = "";
+    // Iteration (forEach)
+    students.forEach((student) => {
+        // Destructuring
+        const { name, email, marks, date } = student;
+        const li = document.createElement("li");
+        li.textContent = `
+        Name: ${name},
+        Email: ${email},
+        Marks: ${marks},
+        Grade: ${gradeMap.get(email)},
+        Added On: ${date.toLocaleDateString()}
+        `;
+        list.appendChild(li);
+    });
+    calculateAverage();
+}
+function calculateAverage() {
+    if (students.length === 0) return;
+    let total = 0;
+    for (let student of students) {   // for...of iteration
+        total += student.marks;
     }
+    const average = Math.round(total / students.length);
 
-    };
-    student.push(student);
-    gradeMap.set(email, student.getGrade());
-    dis
+    console.log("Class Average:", average);
+}
 
+// ================= CLEAR INPUT =================
+function clearFields() {
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("marks").value = "";
+}
 
-
+</script>
 
 </body>
 </html>
