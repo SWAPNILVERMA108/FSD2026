@@ -46,8 +46,35 @@
             throw new Error("Invalid email format");
         }
     }
+if(marks<0 || marks>100){
+    throw new Error("Marks should be between 0 and 100");
+
+
+}
+if(emailSet.has(email)){
+    throw new Error("Email already exists");
+}
+
+emailSet.add(email);
+// object 
+
 
    </script>
+   try{
+   const student = {
+    name,
+    eamil,
+    marks,
+    data: new Date()
+    getGrade : function(){
+        return calculateGrade(this.marks);
+    }
+
+    };
+    student.push(student);
+    gradeMap.set(email, student.getGrade());
+    dis
+
 
 
 
