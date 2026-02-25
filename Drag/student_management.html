@@ -15,6 +15,8 @@
 <h3>Student List:</h3>
 <ul id="studentList"></ul>
 
+
+
 <script>
 
 //  GLOBAL SCOPE 
@@ -29,88 +31,95 @@ function addStudent() {
         debugger;
 
         // Local Scope
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value; // get name input value
+
+        const email = document.getElementById("email").value;// g
         const marks = Number(document.getElementById("marks").value);
 
-        // 
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+        // email validation using regex
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // 
+// validation
         if (!emailPattern.test(email)) {
             throw new Error("Invalid Email Format!");
         }
-
+// maarkds validation
         if (marks < 0 || marks > 100) {
             throw new Error("Marks must be between 0 and 100");
         }
-
+// duplicate email check
         if (emailSet.has(email)) {
             throw new Error("Email already exists!");
         }
-
+// add email to set to track uniqueness
         emailSet.add(email);
 
         // ================= OBJECT =================
+        // object literal with method
         const student = {
             name,
             email,
             marks,
             date: new Date(),   // JS Date
             getGrade: function() {
-                return calculateGrade(this.marks);
+                return calculateGrade(this.marks); // using this keyword to access marks 
             }
         };   
-        students.push(student);
-        gradeMap.set(email, student.getGrade());
-        displayStudents();
-        clearFields();
-    } catch (error) {
-        alert(error.message);
+        students.push(student); // add student to array
+        gradeMap.set(email, student.getGrade()); // stare grade in map with email as key
+        displayStudents(); // update ui
+        clearFields();     // clear input fields
+    } catch (error) {  // error handling using try catch
+        alert(error.message);  // show error message to user
     }
 }
-function calculateGrade(marks) {
-    if (marks >= 90) return "A";
+function calculateGrade(marks) {  // function to calculate grade based on marks 
+    if (marks >= 90) return "A"; // conditional statements to determines grade 
     if (marks >= 75) return "B";
     if (marks >= 60) return "C";
     if (marks >= 40) return "D";
     return "Fail";
 }
-function displayStudents() {
-    const list = document.getElementById("studentList");
-    list.innerHTML = "";
+function displayStudents() {  // function to display students in the ui
+    const list = document.getElementById("studentList"); // get ul element
+    list.innerHTML = "";  // clear existing list item
     // Iteration (forEach)
-    students.forEach((student) => {
+    students.forEach((student) => {  // for each student in students array 
         // Destructuring
-        const { name, email, marks, date } = student;
-        const li = document.createElement("li");
-        li.textContent = `
+        const { name, email, marks, date } = student; // destructure student object to get name , email , marks and date
+        const li = document.createElement("li"); // create new list item element
+        li.textContent = `  // Template Literals
         Name: ${name},
         Email: ${email},
         Marks: ${marks},
         Grade: ${gradeMap.get(email)},
-        Added On: ${date.toLocaleDateString()}
+        Added On: ${date.toLocaleDateString()}   // formate date to readable format
         `;
-        list.appendChild(li);
+        list.appendChild(li); // add list item to ul
     });
-    calculateAverage();
+    calculateAverage();   // calculate and display class average 
 }
-function calculateAverage() {
+function calculateAverage() {   //  function to calculate  average marks 
     if (students.length === 0) return;
     let total = 0;
     for (let student of students) {   // for...of iteration
         total += student.marks;
     }
-    const average = Math.round(total / students.length);
+    const average = Math.round(total / students.length);  // calculate average and round to nearest integer
 
     console.log("Class Average:", average);
 }
 
 // ================= CLEAR INPUT =================
-function clearFields() {
-    document.getElementById("name").value = "";
+function clearFields() {             // function to clear input fields after adding student
+    document.getElementById("name").value = "";  // clear name input field 
     document.getElementById("email").value = "";
     document.getElementById("marks").value = "";
 }
+
+
+// add detete buttor to delet student data 
+
+
 
 </script>
 
