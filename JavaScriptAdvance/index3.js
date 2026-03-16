@@ -16,8 +16,18 @@ let user ={
         pincode:110001
     }
 };
- let deepcopy = JSON.parse(JSON.stringify(user));
- deepcopy.address.city = "noida";
- console.log(user);
- console.log(deepcopy);
+
+
+//  let deepcopy = JSON.parse(JSON.stringify(user));
+//  deepcopy.address.city = "noida";
+//  console.log(user);
+//  console.log(deepcopy);
+
+
+ // using structuredclone()
+
+let deepcopy = structuredClone(user);
+deepcopy.address.city = "mumbai";
+console.log(user);
+console.log(deepcopy);
 
