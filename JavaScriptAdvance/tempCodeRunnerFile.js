@@ -34,3 +34,4 @@ function curry(fn){
 const curried=add.bind(null,2);
 
 console.log(curried(3,4));
+
