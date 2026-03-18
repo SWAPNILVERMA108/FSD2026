@@ -26,8 +26,12 @@ let user ={
 
  // using structuredclone()
 
-let deepcopy = structuredClone(user);
-deepcopy.address.city = "mumbai";
-console.log(user);
-console.log(deepcopy);
+// let deepcopy = structuredClone(user);
+// deepcopy.address.city = "mumbai";
+// console.log(user);
+// console.log(deepcopy);
 
+
+// promise 
+
+const = 
